@@ -9,7 +9,7 @@ float sub(float x , float y){
 }
 
 double mul(double x , int y){
-    return x*y;
+    return y*x;
 }
 
 double div(double x, int y){
