@@ -40,19 +40,28 @@ $(PROGRAMD) : $(OBJECTS_MAIN) $(DynamicLibrary)
 mymathd : $(DynamicLibrary)
 mymaths : $(StaticLibrary)
 
-# i was asked to create the library only if it doesnt exist
-# so if it doesnt exist we try to create the .o objects
-# and then we create the library.
-$(StaticLibrary) : 
-	make $(MYOBJECTS)
-	$(AR) -rcs $@ $(MYOBJECTS)
+# create the static/dynamic library but we do care about changes to .o objects.
+# in the question it sounds like we dont.
+$(StaticLibrary) : $(MYOBJECTS)
+	$(AR) -rcs $@ $^
+
+$(DynamicLibrary) : $(MYOBJECTS)
+	$(CC) -shared -o $@ $^
 
 # i was asked to create the library only if it doesnt exist
 # so if it doesnt exist we try to create the .o objects
 # and then we create the library.
-$(DynamicLibrary) : 
-	make $(MYOBJECTS)
-	$(CC) -shared -o $@ $(MYOBJECTS)
+# $(StaticLibrary) : 
+# 	make $(MYOBJECTS)
+# 	$(AR) -rcs $@ $(MYOBJECTS)
+
+
+# i was asked to create the library only if it doesnt exist
+# so if it doesnt exist we try to create the .o objects
+# and then we create the library.
+# $(DynamicLibrary) : 
+# 	make $(MYOBJECTS)
+# 	$(CC) -shared -o $@ $(MYOBJECTS)
 
 %.o: %.c myMath.h
 	gcc $(FLAGS) -fPIC -c $<
