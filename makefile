@@ -20,10 +20,6 @@ runs: $(PROGRAMS)
 compiles: $(PROGRAMS)
 compiled: $(PROGRAMD)
 
-
-kek.txt : test | phonytarget
-	touch $@
-
 # i was asked to create mains and maind
 # but not to generate it again if it exist,
 # but its impossible, as i was asked to generate mainc and maind
